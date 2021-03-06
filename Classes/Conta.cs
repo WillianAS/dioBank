@@ -13,7 +13,7 @@ namespace dioBank {
 
         private TipoConta TipoConta { get; set; }
         private double Saldo { get; set; }
-        private double Credito {get; set; }
+        private double Credito { get; set; }
         private string Nome { get; set; }
 
         public bool Sacar(double valorSaque) {
@@ -29,6 +29,7 @@ namespace dioBank {
                 }
             }
             else {
+                Console.WriteLine("Valor de saque não pode ser negativo!");
                 return false;
             }
         }
@@ -38,6 +39,16 @@ namespace dioBank {
                 this.Saldo += valorDeposito;
                 Console.WriteLine("Saldo atual da conta de {0} é {1}.", this.Nome, this.Saldo);
             }
+        }
+
+        public void Transferir(double valorTransferencia, Conta contaDestino) {
+            if (this.Sacar(valorTransferencia)) {
+                contaDestino.Depositar(valorTransferencia);
+            }
+        }
+
+        public void statusConta() {
+            Console.WriteLine("Tipo da conta: {0} | Nome: {1} | Saldo: {2} | Crédito: {3}", this.TipoConta, this.Nome, this.Saldo, this.Credito);
         }
     }
 }
